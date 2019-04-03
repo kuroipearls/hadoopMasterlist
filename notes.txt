@@ -1,0 +1,37 @@
+QUICKNOTES about Hadoop (3.1.2)
+
+Tutorial instalasi: https://www.bogotobogo.com/Hadoop/BigData_hadoop_Install_on_ubuntu_16_04_single_node_cluster.php . 
+
+~/.bashrc environment variable: 
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HADOOP_INSTALL=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_INSTALL/bin
+export PATH=$PATH:$HADOOP_INSTALL/sbin
+export HADOOP_MAPRED_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_HOME=$HADOOP_INSTALL
+export HADOOP_HDFS_HOME=$HADOOP_INSTALL
+export YARN_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_INSTALL/lib/native
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_INSTALL/lib"
+export HADOOP_CLASSPATH=$(hadoop classpath)
+
+
+HDFS: 
+1. port nya di localhost:9870. 
+2. kalau mau akses hdfs pake terminal, caranya: 'hadoop fs -ls /'. Jangan lupa '/' nya!
+   alasan: https://stackoverflow.com/questions/28241251/hadoop-fs-ls-results-in-no-such-file-or-directory
+
+YARN:
+1. jangan lupa config classpath buat eksekusi jar file program berbasis Java. 
+
+Simple tutorial buat ngetes mapreduce di hadoop:
+1. download WordCount.java & input.txt . 
+2. 'mkdir wordCount' (di local).
+3. 'javac -classpath ${HADOOP_CLASSPATH} -d wordCount WordCount.java' (compile). 
+4. 'jar -cvf wordCount.jar -C wordCount/ .' (bikin jar). 
+5. 'hadoop fs -mkdir /wordCount' (bikin folder wordCount di hdfs). 
+6. 'hadoop fs -put input.txt /wordCount' (upload file input.txt ke HDFS). 
+7. 'hadoop jar wordCount.jar WordCount /wordCount /wordCount/output' (eksekusi program). 
+8. 'hadoop fs -cat /wordCount/output/part-r-00000' (tampilkan hasil eksekusi). 
+Source: https://www.tutorialspoint.com/map_reduce/implementation_in_hadoop.htm & https://www.youtube.com/watch?v=6sK3LDY7Pp4 . 
+
