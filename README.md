@@ -1,0 +1,2 @@
+# hadoopMasterlist
+Some hadoop configurations. 
